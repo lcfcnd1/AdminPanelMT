@@ -1,12 +1,16 @@
+import { useState } from 'react';
 import { useDataStore } from '@/store/dataStore';
 import { Order } from '@/types';
 import { DataTable } from '@/components/shared/DataTable';
 import { StatusBadge } from '@/components/shared/StatusBadge';
+import { OrderDrawer } from '@/components/orders/OrderDrawer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DollarSign, ShoppingCart, Clock, CheckCircle } from 'lucide-react';
 
 export default function Orders() {
   const { orders } = useDataStore();
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const completedOrders = orders.filter(o => o.status === 'completed');
   const pendingOrders = orders.filter(o => o.status === 'pending');
@@ -39,6 +43,11 @@ export default function Orders() {
       color: 'bg-success/10 text-success',
     },
   ];
+
+  const handleRowClick = (order: Order) => {
+    setSelectedOrder(order);
+    setDrawerOpen(true);
+  };
 
   const columns = [
     {
@@ -123,6 +132,13 @@ export default function Orders() {
         searchPlaceholder="Buscar pedidos..."
         searchKeys={['id', 'productTitle', 'customerEmail']}
         emptyMessage="No hay ventas registradas."
+        onRowClick={handleRowClick}
+      />
+
+      <OrderDrawer
+        order={selectedOrder}
+        open={drawerOpen}
+        onOpenChange={setDrawerOpen}
       />
     </div>
   );
