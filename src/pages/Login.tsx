@@ -32,7 +32,7 @@ export default function Login() {
         title: '¡Bienvenido!',
         description: 'Has iniciado sesión correctamente.',
       });
-      navigate('/ingreso/dashboard');
+      navigate('/dashboard');
     } else {
       setError('Credenciales inválidas. Intenta de nuevo.');
     }
