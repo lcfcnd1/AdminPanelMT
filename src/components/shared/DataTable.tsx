@@ -30,6 +30,7 @@ interface DataTableProps<T extends { id: string }> {
   selectedIds?: string[];
   pageSize?: number;
   emptyMessage?: string;
+  onRowClick?: (item: T) => void;
 }
 
 export function DataTable<T extends { id: string }>({
@@ -41,6 +42,7 @@ export function DataTable<T extends { id: string }>({
   selectedIds = [],
   pageSize = 10,
   emptyMessage = 'No hay datos disponibles',
+  onRowClick,
 }: DataTableProps<T>) {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -145,8 +147,10 @@ export function DataTable<T extends { id: string }>({
                   key={item.id}
                   className={cn(
                     "hover:bg-table-row-hover transition-colors",
-                    selectedIds.includes(item.id) && "bg-primary/5"
+                    selectedIds.includes(item.id) && "bg-primary/5",
+                    onRowClick && "cursor-pointer"
                   )}
+                  onClick={() => onRowClick?.(item)}
                 >
                   {onSelectionChange && (
                     <TableCell>
