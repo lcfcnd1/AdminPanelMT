@@ -63,10 +63,10 @@ const mockCoupons: Coupon[] = [
 ];
 
 const mockOrders: Order[] = [
-  { id: 'ORD-001', date: '2024-01-20', productId: '1', productTitle: 'Ritual de Atracción Amorosa', originalPrice: 49.99, finalPrice: 44.99, status: 'completed', customerEmail: 'cliente1@email.com', createdAt: '2024-01-20' },
-  { id: 'ORD-002', date: '2024-01-21', productId: '2', productTitle: 'Ritual de Abundancia Financiera', originalPrice: 79.99, finalPrice: 79.99, status: 'processing', customerEmail: 'cliente2@email.com', createdAt: '2024-01-21' },
-  { id: 'ORD-003', date: '2024-01-22', productId: '3', productTitle: 'Escudo de Protección Personal', originalPrice: 39.99, finalPrice: 33.99, status: 'pending', customerEmail: 'cliente3@email.com', createdAt: '2024-01-22' },
-  { id: 'ORD-004', date: '2024-01-23', productId: '1', productTitle: 'Ritual de Atracción Amorosa', originalPrice: 49.99, finalPrice: 44.99, status: 'cancelled', customerEmail: 'cliente4@email.com', createdAt: '2024-01-23' },
+  { id: 'ORD-001', date: '2024-01-20', productId: '1', productTitle: 'Ritual de Atracción Amorosa', originalPrice: 49.99, finalPrice: 44.99, status: 'completed', customerName: 'María García', customerEmail: 'cliente1@email.com', customerPhone: '+52 55 1234 5678', extraInfo: 'Solicita envío discreto', couponCode: 'BIENVENIDO10', createdAt: '2024-01-20' },
+  { id: 'ORD-002', date: '2024-01-21', productId: '2', productTitle: 'Ritual de Abundancia Financiera', originalPrice: 79.99, finalPrice: 79.99, status: 'processing', customerName: 'Juan Pérez', customerEmail: 'cliente2@email.com', customerPhone: '+52 55 9876 5432', extraInfo: '', couponCode: null, createdAt: '2024-01-21' },
+  { id: 'ORD-003', date: '2024-01-22', productId: '3', productTitle: 'Escudo de Protección Personal', originalPrice: 39.99, finalPrice: 33.99, status: 'pending', customerName: 'Ana López', customerEmail: 'cliente3@email.com', customerPhone: '+52 55 5555 1234', extraInfo: 'Primera compra, tiene dudas sobre el proceso', couponCode: 'VERANO15', createdAt: '2024-01-22' },
+  { id: 'ORD-004', date: '2024-01-23', productId: '1', productTitle: 'Ritual de Atracción Amorosa', originalPrice: 49.99, finalPrice: 44.99, status: 'cancelled', customerName: 'Carlos Ruiz', customerEmail: 'cliente4@email.com', customerPhone: '+52 55 4321 8765', extraInfo: 'Canceló por error en el pedido', couponCode: 'BIENVENIDO10', createdAt: '2024-01-23' },
 ];
 
 interface DataStore {
