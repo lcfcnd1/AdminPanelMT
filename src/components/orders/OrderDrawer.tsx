@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -22,7 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { StatusBadge } from '@/components/shared/StatusBadge';
-import { Calendar, Mail, Package, DollarSign, Hash } from 'lucide-react';
+import { Calendar, Mail, Package, DollarSign, Hash, User, Phone, FileText, Ticket } from 'lucide-react';
 
 interface OrderDrawerProps {
   order: Order | null;
@@ -38,11 +39,15 @@ const statusOptions: { value: OrderStatus; label: string }[] = [
 ];
 
 export function OrderDrawer({ order, open, onOpenChange }: OrderDrawerProps) {
-  const { updateOrder, products } = useDataStore();
+  const { updateOrder, products, coupons } = useDataStore();
   const [formData, setFormData] = useState({
     productId: '',
     productTitle: '',
+    customerName: '',
     customerEmail: '',
+    customerPhone: '',
+    extraInfo: '',
+    couponCode: '' as string | null,
     originalPrice: 0,
     finalPrice: 0,
     status: 'pending' as OrderStatus,
@@ -54,7 +59,11 @@ export function OrderDrawer({ order, open, onOpenChange }: OrderDrawerProps) {
       setFormData({
         productId: order.productId,
         productTitle: order.productTitle,
+        customerName: order.customerName,
         customerEmail: order.customerEmail,
+        customerPhone: order.customerPhone,
+        extraInfo: order.extraInfo,
+        couponCode: order.couponCode,
         originalPrice: order.originalPrice,
         finalPrice: order.finalPrice,
         status: order.status,
@@ -83,7 +92,11 @@ export function OrderDrawer({ order, open, onOpenChange }: OrderDrawerProps) {
     updateOrder(order.id, {
       productId: formData.productId,
       productTitle: formData.productTitle,
+      customerName: formData.customerName,
       customerEmail: formData.customerEmail,
+      customerPhone: formData.customerPhone,
+      extraInfo: formData.extraInfo,
+      couponCode: formData.couponCode || null,
       originalPrice: formData.originalPrice,
       finalPrice: formData.finalPrice,
       status: formData.status,
@@ -133,6 +146,85 @@ export function OrderDrawer({ order, open, onOpenChange }: OrderDrawerProps) {
               />
             </div>
 
+            {/* Customer Name */}
+            <div className="space-y-2">
+              <Label className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                Nombre del Cliente
+              </Label>
+              <Input
+                value={formData.customerName}
+                onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
+                placeholder="Nombre completo"
+              />
+            </div>
+
+            {/* Customer Email */}
+            <div className="space-y-2">
+              <Label className="flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                Email del Cliente
+              </Label>
+              <Input
+                type="email"
+                value={formData.customerEmail}
+                onChange={(e) => setFormData({ ...formData, customerEmail: e.target.value })}
+                placeholder="cliente@email.com"
+              />
+            </div>
+
+            {/* Customer Phone */}
+            <div className="space-y-2">
+              <Label className="flex items-center gap-2">
+                <Phone className="h-4 w-4" />
+                Teléfono
+              </Label>
+              <Input
+                type="tel"
+                value={formData.customerPhone}
+                onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
+                placeholder="+52 55 1234 5678"
+              />
+            </div>
+
+            {/* Extra Info */}
+            <div className="space-y-2">
+              <Label className="flex items-center gap-2">
+                <FileText className="h-4 w-4" />
+                Información Extra
+              </Label>
+              <Textarea
+                value={formData.extraInfo}
+                onChange={(e) => setFormData({ ...formData, extraInfo: e.target.value })}
+                placeholder="Notas adicionales sobre el pedido..."
+                rows={3}
+              />
+            </div>
+
+            {/* Coupon */}
+            <div className="space-y-2">
+              <Label className="flex items-center gap-2">
+                <Ticket className="h-4 w-4" />
+                Cupón Aplicado
+              </Label>
+              <Select 
+                value={formData.couponCode || 'none'} 
+                onValueChange={(value) => setFormData({ ...formData, couponCode: value === 'none' ? null : value })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Sin cupón" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">Sin cupón</SelectItem>
+                  {coupons.map((coupon) => (
+                    <SelectItem key={coupon.id} value={coupon.code}>
+                      {coupon.code} (-{coupon.discountPercentage}%)
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
             {/* Product */}
             <div className="space-y-2">
               <Label className="flex items-center gap-2">
@@ -151,20 +243,6 @@ export function OrderDrawer({ order, open, onOpenChange }: OrderDrawerProps) {
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-
-            {/* Customer Email */}
-            <div className="space-y-2">
-              <Label className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                Email del Cliente
-              </Label>
-              <Input
-                type="email"
-                value={formData.customerEmail}
-                onChange={(e) => setFormData({ ...formData, customerEmail: e.target.value })}
-                placeholder="cliente@email.com"
-              />
             </div>
 
             {/* Prices */}

@@ -44,7 +44,11 @@ export interface Order {
   originalPrice: number;
   finalPrice: number;
   status: OrderStatus;
+  customerName: string;
   customerEmail: string;
+  customerPhone: string;
+  extraInfo: string;
+  couponCode: string | null;
   createdAt: string;
 }
 
