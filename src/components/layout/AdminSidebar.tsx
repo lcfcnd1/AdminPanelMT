@@ -16,12 +16,12 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 const navItems = [
-  { path: '/ingreso/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/ingreso/productos', label: 'Productos', icon: Package },
-  { path: '/ingreso/categorias', label: 'Categorías', icon: FolderTree },
-  { path: '/ingreso/cupones', label: 'Cupones', icon: Ticket },
-  { path: '/ingreso/ventas', label: 'Ventas', icon: ShoppingCart },
-  { path: '/ingreso/pagos', label: 'Config. Pagos', icon: CreditCard },
+  { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { path: '/productos', label: 'Productos', icon: Package },
+  { path: '/categorias', label: 'Categorías', icon: FolderTree },
+  { path: '/cupones', label: 'Cupones', icon: Ticket },
+  { path: '/ventas', label: 'Ventas', icon: ShoppingCart },
+  { path: '/pagos', label: 'Config. Pagos', icon: CreditCard },
 ];
 
 export function AdminSidebar() {
